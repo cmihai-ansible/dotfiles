@@ -23,12 +23,27 @@ Role Variables
 --------------
 
 ```yaml
-dotfiles_remove_packages: true
-dotfiles_enable_service: true
-dotfiles_enable_selinux: true
-dotfiles_firewall_configure: true
-dotfiles_firewall_rules:
-  - service:
+dotfiles_repo: "https://github.com/crivetimihai/dotfiles.git"
+dotfiles_repo_version: HEAD
+dotfiles_path: ~/.dotfiles
+spacemacs_version: "v0.200.13"
+
+dotfiles_user: ansible
+
+# Link dotfiles
+dotfiles_files:
+  - .tmux.conf.local
+  - .tmux.conf
+  - .zshrc
+
+# Copy (and backup)
+dotfiles_copy:
+  - .zshrc.local
+  - .gitconfig
+
+# Sync (no backup)
+dotfiles_sync:
+  - .config
 ```
 
 Dependencies
@@ -51,11 +66,27 @@ Example Playbook
       import_role:
         name: crivetimihai.dotfiles
       vars:
-        dotfiles_remove_packages: true
-        dotfiles_enable_service: true
-        dotfiles_firewall_configure: true
-        dotfiles_firewall_rules:
-          - service:
+        dotfiles_repo: "https://github.com/crivetimihai/dotfiles.git"
+        dotfiles_repo_version: HEAD
+        dotfiles_path: ~/.dotfiles
+        spacemacs_version: "v0.200.13"
+
+        dotfiles_user: ansible
+
+        # Link dotfiles
+        dotfiles_files:
+          - .tmux.conf.local
+          - .tmux.conf
+          - .zshrc
+
+        # Copy (and backup)
+        dotfiles_copy:
+          - .zshrc.local
+          - .gitconfig
+
+        # Sync (no backup)
+        dotfiles_sync:
+          - .config
       tags: dotfiles
 ```
 
